@@ -99,8 +99,8 @@ $(function() {
 		 var feedContainer;
 
 		 beforeEach(function(done) {
-		 	feedContainer = document.querySelector('.feed');
 		 	loadFeed(0, done);
+		 	feedContainer = document.querySelector('.feed');
 		 });
 
 		 // this spec will not start until the done() passed in as a callback in the beforeEach
@@ -112,14 +112,34 @@ $(function() {
 		 });
 	});
 
-
-
-
-
 	/* TODO: Write a new test suite named "New Feed Selection" */
-
+	describe('New Feed Selection', function() {
 		/* TODO: Write a test that ensures when a new feed is loaded
 		 * by the loadFeed function that the content actually changes.
 		 * Remember, loadFeed() is asynchronous.
 		 */
+		 var originalFeed;
+		 var newFeed;
+
+		 beforeAll(function(done) {
+		 	// this function has access to originalFeed because it's a closure
+		 	loadFeed(0, function() {
+		 		originalFeed = document.querySelector('.feed').innerHTML;
+		 		done();
+		 	});
+		 });
+
+		 beforeEach(function(done) {
+		 	// this function has access to newFeed because it's a closure
+		 	loadFeed(1, function() {
+		 		newFeed = document.querySelector('.feed').innerHTML;
+		 		done();
+		 	});
+		 });
+
+		 it('should update the content when a new request is made', function(done) {
+		 	expect(newFeed).not.toBe(originalFeed);
+		 	done();
+		 });
+	});
 }());
