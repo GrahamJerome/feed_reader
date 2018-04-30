@@ -88,19 +88,16 @@ $(function() {
 		 var originalFeed;
 		 var newFeed;
 
-		 beforeAll(function(done) {
+		 beforeEach(function(done) {
 		 	// this function has access to originalFeed because it's a closure
 		 	loadFeed(0, function() {
 		 		originalFeed = document.querySelector('.feed').innerHTML;
-		 		done();
-		 	});
-		 });
 
-		 beforeEach(function(done) {
-		 	// this function has access to newFeed because it's a closure
-		 	loadFeed(1, function() {
-		 		newFeed = document.querySelector('.feed').innerHTML;
-		 		done();
+		 		// this function has access to newFeed because it's a closure
+		 		loadFeed(1, function() {
+		 			newFeed = document.querySelector('.feed').innerHTML;
+		 			done();
+		 		});
 		 	});
 		 });
 
